@@ -3,7 +3,7 @@ import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
 export default function InterviewerListItem(props) {
-  const { id, name, avatar, selected, setInterviewer } = props;
+  const { name, avatar, selected, setInterviewer } = props;
   //add a base class
   let interviewClass = classNames("interviewers__item", {
     "interviewers__item--selected": selected,
@@ -11,7 +11,7 @@ export default function InterviewerListItem(props) {
   return (
     <li
       onClick={(e) => {
-        setInterviewer(id);
+        setInterviewer();
       }}
       className={interviewClass}
     >
