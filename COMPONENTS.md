@@ -67,7 +67,7 @@
 ### Appointment/Show
 
 - State:
-- Props:
+- Props: student, interviewer, onEdit, onDelete
 - Used by:
 
 ### Appointment/Form
