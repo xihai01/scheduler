@@ -66,7 +66,7 @@
 
 ### Appointment/Show
 
-- State:
+- State: display interviewee/interviewer, edit/delete
 - Props: student, interviewer, onEdit, onDelete
 - Used by:
 
@@ -91,5 +91,5 @@
 ### Appointment/Confirm
 
 - State:
-- Props:
+- Props: message, onConfirm, onCancel
 - Used by:
