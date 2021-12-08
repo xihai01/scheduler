@@ -36,8 +36,8 @@
 
 ### InterviewerList
 
-- State:
-- Props:
+- State: inital, selected, clicked
+- Props: interviewers, setInterviewer, interviewer
 - Used by:
 
 ### InterviewerListItem
