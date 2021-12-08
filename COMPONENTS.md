@@ -42,9 +42,9 @@
 
 ### InterviewerListItem
 
-- State:
-- Props:
-- Used by:
+- State: Unselected, selected, clicked
+- Props: id, name, avatar, selected, setInterviewer
+- Used by: InterviewerList
 
 ### Appointment
 
