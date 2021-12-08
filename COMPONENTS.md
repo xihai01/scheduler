@@ -55,13 +55,13 @@
 ### Appointment/Header
 
 - State:
-- Props:
+- Props: time
 - Used by:
 
 ### Appointment/Empty
 
 - State:
-- Props:
+- Props: onAdd
 - Used by:
 
 ### Appointment/Show
