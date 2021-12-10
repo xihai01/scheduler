@@ -4,7 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 
 /* const appointments = [
   {
@@ -50,25 +50,31 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     appointments: {},
+    interviewers: {},
   });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   //const [day, setDay] = useState("Monday");
   //const [days, setDays] = useState([]);
 
   useEffect(() => {
-    Promise.all([axios.get("/api/days"), axios.get("/api/appointments")]).then(
-      (response) => {
-        const days = response[0].data;
-        const appointments = response[1].data;
-        console.log(response[0].data);
-        console.log(response[1].data);
-        setState((prev) => ({
-          ...prev,
-          days: days,
-          appointments: appointments,
-        }));
-      }
-    );
+    Promise.all([
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
+    ]).then((response) => {
+      const days = response[0].data;
+      const appointments = response[1].data;
+      const interviewers = response[2].data;
+      console.log(response[0].data);
+      console.log(response[1].data);
+      console.log(response[2].data);
+      setState((prev) => ({
+        ...prev,
+        days: days,
+        appointments: appointments,
+        interviewers: interviewers,
+      }));
+    });
   }, []);
 
   const setDay = (day) => {
@@ -77,7 +83,9 @@ export default function Application(props) {
 
   //generates a list of appointments for a day
   const appoints = dailyAppointments.map((appointment) => {
-    return <Appointment key={appointment.id} {...appointment} />;
+    const interview = getInterview(state, appointment.interview);
+    const app = { ...appointment, interview: interview };
+    return <Appointment key={appointment.id} {...app} />;
   });
   appoints.push(<Appointment key="last" time="5pm" />);
   return (
