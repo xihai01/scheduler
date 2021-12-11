@@ -1,5 +1,3 @@
-import InterviewerList from "components/InterviewerList";
-
 export function getAppointmentsForDay(state, day) {
   let result = [];
   //get the appointment array of the day from state
@@ -35,4 +33,22 @@ export function getInterview(state, interview) {
     }
   }
   return null;
+}
+
+export function getInterviewersForDay(state, day) {
+  let result = [];
+  //find the selected day from state obj
+  let selectedDay = state.days.filter((d) => d.name === day);
+  if (selectedDay.length === 0) {
+    return result;
+  }
+  //once the selected day is found, get its interviews
+  let interviews = selectedDay[0].interviewers;
+  let allInterviewers = state.interviewers;
+  for (const interviewer of interviews) {
+    //add the interviewer obj into result
+    let interviewerObj = { ...allInterviewers[interviewer] };
+    result.push(interviewerObj);
+  }
+  return result;
 }
