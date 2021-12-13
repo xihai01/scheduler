@@ -77,14 +77,16 @@ export default function Application(props) {
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
         //set state if response code is 204
+        console.log('hi');
         if (response.status === 204) {
           console.log("hello");
           setState({ ...state, appointments });
-          return;
         }
+        return;
       })
       .catch((error) => {
-        return error;
+        console.log('errr');
+        return Promise.reject(error);
       });
   };
 
@@ -103,11 +105,11 @@ export default function Application(props) {
       .then((response) => {
         if (response.status === 204) {
           setState({ ...state, appointments });
-          return;
         }
+        return;
       })
       .catch((error) => {
-        return error;
+        return Promise.reject(error);
       });
   };
   //const [day, setDay] = useState("Monday");
