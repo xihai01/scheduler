@@ -58,9 +58,39 @@ export default function Application(props) {
   });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
+  //change the local state when an interview is booked - PUT
+  const bookInterview = function (id, interview) {
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    //update the list of appointments with new appointment obj
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+    //setState({ ...state, appointments });
+    //update API db with new appointment
+    console.log("outside of promise");
+    return axios
+      .put(`/api/appointments/${id}`, { interview })
+      .then((response) => {
+        //set state if response code is 204
+        if (response.status === 204) {
+          console.log("hello");
+          setState({ ...state, appointments });
+          return;
+        }
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
   //const [day, setDay] = useState("Monday");
   //const [days, setDays] = useState([]);
 
+  //requests to API server to fetch state data
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -95,6 +125,7 @@ export default function Application(props) {
         key={appointment.id}
         {...app}
         interviewers={dailyInterviewers}
+        bookInterview={bookInterview}
       />
     );
   });

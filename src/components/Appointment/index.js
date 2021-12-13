@@ -5,15 +5,36 @@ import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
 import Form from "./Form";
+import Status from "./Status";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+
+  const save = function (name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer,
+    };
+    //show saving status mode
+    transition(SAVING);
+    props
+      .bookInterview(props.id, interview)
+      .then(() => {
+        //transition to show mode
+        transition(SHOW);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -37,8 +58,12 @@ export default function Appointment(props) {
           onCancel={() => {
             back();
           }}
+          onSave={(name, interviewer) => {
+            save(name, interviewer);
+          }}
         />
       )}
+      {mode === SAVING && <Status message="Saving" />}
     </article>
   );
 }
