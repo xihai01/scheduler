@@ -5,15 +5,19 @@ export function useVisualMode(initial) {
   const [history, setHistory] = useState([initial]);
   const transition = (newMode, replace = false) => {
     if (replace) {
-      //replace the last mode in history with new mode
-      let newHistory = [...history];
-      newHistory.pop();
-      newHistory.push(newMode);
-      setMode(newMode);
-      setHistory(newHistory);
+      setMode(() => newMode);
+      setHistory((prev) => {
+        //replace the last mode in history with new mode
+        let newHistory = [...prev];
+        newHistory.pop();
+        newHistory.push(newMode);
+        return newHistory;
+      });
+      console.log(history);
     } else {
-      setMode(newMode);
+      setMode(() => newMode);
       setHistory((prev) => [...prev, newMode]);
+      console.log(history);
     }
   };
   const back = () => {

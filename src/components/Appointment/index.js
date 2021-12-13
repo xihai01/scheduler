@@ -90,7 +90,7 @@ export default function Appointment(props) {
           message="Delete the Appointment?"
           onConfirm={() => {
             const interview = null;
-            transition(DELETING);
+            transition(DELETING, true);
             console.log("deleting");
             props
               .cancelInterview(props.id, interview)
@@ -124,6 +124,14 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error
           message="Could not delete appointment"
+          onClose={() => {
+            back();
+          }}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message="Could not save appointment"
           onClose={() => {
             back();
           }}
