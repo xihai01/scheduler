@@ -73,7 +73,7 @@ export default function Application(props) {
       />
     );
   });
-  appoints.push(<Appointment key="last" time="5pm" />);
+  appoints.push(<Appointment key="last" time="5pm" interview={null} />);
   return (
     <main className="layout">
       <section className="sidebar">

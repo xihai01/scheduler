@@ -65,7 +65,7 @@ export default function Appointment(props) {
           }}
         />
       )}
-      {mode === EMPTY && (
+      {(mode === EMPTY && props.time !== "5pm") && (
         <Empty
           onAdd={() => {
             transition(CREATE);
