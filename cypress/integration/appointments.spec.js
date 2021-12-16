@@ -19,6 +19,7 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Lydia Miller-Jones");
     cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
+
   it("should edit an interview", () => {
     //click the edit button for Archie Cohen
     cy.get('[alt="Edit"]').click({ force: true });
@@ -31,5 +32,15 @@ describe("Appointments", () => {
     //verify the new name and interviewer is shown
     cy.contains(".appointment__card--show", "Xihai Luo", "Tori Malcolm");
   });
-  it("should cancel an interview", () => {});
+
+  it("should cancel an interview", () => {
+    //click the delete button for Archie
+    cy.get('[alt="Delete"]').click({ force: true });
+    //click confirm
+    cy.contains("Confirm").click();
+    //verify form is empty
+    cy.contains("Deleting").should("exist");
+    cy.contains("Deleting").should("not.exist");
+    cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist");
+  });
 });
