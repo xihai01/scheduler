@@ -13,11 +13,9 @@ export function useVisualMode(initial) {
         newHistory.push(newMode);
         return newHistory;
       });
-      console.log(history);
     } else {
       setMode(() => newMode);
       setHistory((prev) => [...prev, newMode]);
-      console.log(history);
     }
   };
   const back = () => {

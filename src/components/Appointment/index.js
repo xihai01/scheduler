@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useVisualMode } from "hooks/useVisualMode";
 import "components/Appointment/styles.scss";
 import Header from "./Header";
@@ -38,7 +38,6 @@ export default function Appointment(props) {
         transition(SHOW);
       })
       .catch((error) => {
-        console.log("error saving");
         transition(ERROR_SAVE, true);
       });
   };
@@ -91,7 +90,6 @@ export default function Appointment(props) {
           onConfirm={() => {
             const interview = null;
             transition(DELETING, true);
-            console.log("deleting");
             props
               .cancelInterview(props.id, interview)
               .then(() => {
@@ -99,7 +97,6 @@ export default function Appointment(props) {
                 transition(EMPTY);
               })
               .catch((error) => {
-                console.log("error deleting");
                 transition(ERROR_DELETE, true);
               });
           }}

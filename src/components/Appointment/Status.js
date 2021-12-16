@@ -1,5 +1,6 @@
 import React from "react";
 
+//status animation showing saving/deleting
 export default function Status(props) {
   const { message } = props;
   return (

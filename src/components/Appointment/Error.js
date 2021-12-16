@@ -1,5 +1,6 @@
 import React from "react";
 
+//error message for failed HTTP requests
 export default function Error(props) {
   const { message, onClose } = props;
   return (

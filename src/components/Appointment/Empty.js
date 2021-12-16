@@ -1,6 +1,7 @@
 import React from "react";
 
 //component takes in a onAdd()
+//empty form component
 export default function Empty(props) {
   const { onAdd } = props;
   return (

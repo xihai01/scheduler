@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -11,53 +10,12 @@ import {
 } from "helpers/selectors";
 import { useApplicationData } from "hooks/useApplicationData";
 
-/* const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 3,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      },
-    },
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Archie Andrews",
-      interviewer: {
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      },
-    },
-  },
-  {
-    id: 5,
-    time: "4pm",
-  },
-]; */
-
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } =
     useApplicationData();
+    //get a list of appointments and interviewers for each day
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-
-  //const [day, setDay] = useState("Monday");
-  //const [days, setDays] = useState([]);
 
   //generates a list of appointments for a day
   const appoints = dailyAppointments.map((appointment) => {
