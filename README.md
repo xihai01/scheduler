@@ -10,6 +10,20 @@ The Interview Scheduler is a single page application (SPA) created with React wh
 
 ## Demo
 
+Menu Navigation
+!["Menu Navigation"](https://github.com/xihai01/scheduler/blob/master/docs/day-list.gif?raw=true)
+
+Booking a new appointment
+!["Book appointment"](https://github.com/xihai01/scheduler/blob/master/docs/form-create.gif?raw=true)
+
+Delete an existing appointment
+!["Delete Appointment"](https://github.com/xihai01/scheduler/blob/master/docs/form-delete.gif?raw=true)
+
+Edit an exisiting appointment
+!["Edit Appointment"](https://github.com/xihai01/scheduler/blob/master/docs/form-edit.gif?raw=true)
+
+Error communicating with server
+!["Server Error"](https://github.com/xihai01/scheduler/blob/master/docs/form-error.gif?raw=true)
 
 ## Setup
 
