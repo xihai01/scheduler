@@ -46,9 +46,9 @@ export function useApplicationData() {
       }
     }
     //update days state with number of spots
-    let dayCpy = [];
+    const dayCpy = [];
     for (const d of state.days) {
-      let dCpy = { ...d };
+      const dCpy = { ...d };
       if (dCpy.name === state.day) {
         dCpy.spots = spots;
       }
@@ -75,7 +75,7 @@ export function useApplicationData() {
               ...prevState.appointments,
               [id]: appointment,
             };
-            let days = updateDaySpots(appointments);
+            const days = updateDaySpots(appointments);
             return { ...prevState, appointments, days };
           });
         }
@@ -100,7 +100,7 @@ export function useApplicationData() {
               ...prevState.appointments,
               [id]: appointment,
             };
-            let days = updateDaySpots(appointments);
+            const days = updateDaySpots(appointments);
             return { ...prevState, appointments, days };
           });
         }

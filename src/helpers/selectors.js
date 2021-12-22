@@ -1,12 +1,12 @@
 export function getAppointmentsForDay(state, day) {
-  let result = [];
+  const result = [];
   //get the appointment array of the day from state
-  let selectedDay = state.days.filter((d) => d.name === day);
+  const selectedDay = state.days.filter((d) => d.name === day);
   if (selectedDay.length === 0) {
     return result;
   }
-  let appointments = selectedDay[0].appointments;
-  let allAppointments = state.appointments;
+  const appointments = selectedDay[0].appointments;
+  const allAppointments = state.appointments;
   for (const appointment of appointments) {
     //add appointment id to result if matches
     if (allAppointments[appointment] !== undefined) {
@@ -17,17 +17,18 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export function getInterview(state, interview) {
-  let result = {};
-  let interviewList = state.interviewers;
+  const result = {};
+  const interviewList = state.interviewers;
   if (interview === null) {
     return null;
   }
   //get the name of the student and id of interviewer
-  let studentName = interview.student;
-  let interviewerID = interview.interviewer;
+  const studentName = interview.student;
+  const interviewerID = interview.interviewer;
   result.student = studentName;
   for (const id in interviewList) {
-    if (id == interviewerID) {
+    //key id is a string, so convert it into a number
+    if (Number(id) === interviewerID) {
       result.interviewer = interviewList[id];
       return result;
     }
@@ -36,18 +37,18 @@ export function getInterview(state, interview) {
 }
 
 export function getInterviewersForDay(state, day) {
-  let result = [];
+  const result = [];
   //find the selected day from state obj
-  let selectedDay = state.days.filter((d) => d.name === day);
+  const selectedDay = state.days.filter((d) => d.name === day);
   if (selectedDay.length === 0) {
     return result;
   }
   //once the selected day is found, get its interviews
-  let interviews = selectedDay[0].interviewers;
-  let allInterviewers = state.interviewers;
+  const interviews = selectedDay[0].interviewers;
+  const allInterviewers = state.interviewers;
   for (const interviewer of interviews) {
     //add the interviewer obj into result
-    let interviewerObj = { ...allInterviewers[interviewer] };
+    const interviewerObj = { ...allInterviewers[interviewer] };
     result.push(interviewerObj);
   }
   return result;

@@ -8,7 +8,7 @@ export function useVisualMode(initial) {
       setMode(() => newMode);
       setHistory((prev) => {
         //replace the last mode in history with new mode
-        let newHistory = [...prev];
+        const newHistory = [...prev];
         newHistory.pop();
         newHistory.push(newMode);
         return newHistory;
@@ -20,7 +20,7 @@ export function useVisualMode(initial) {
   };
   const back = () => {
     //pop last mode from history
-    let newHistory = [...history];
+    const newHistory = [...history];
     if (newHistory.length > 1) {
       //remove curr mode from history
       let prevMode = newHistory.pop();
