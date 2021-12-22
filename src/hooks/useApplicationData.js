@@ -59,25 +59,26 @@ export function useApplicationData() {
 
   //change the local state when an interview is booked - PUT
   const bookInterview = function (id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview },
-    };
-    //update the list of appointments with new appointment obj
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
     //update API db with new appointment
     return axios
       .put(`/api/appointments/${id}`, { interview })
       .then((response) => {
         //set state if response code is 204
         if (response.status === 204) {
-          let days = updateDaySpots(appointments);
-          setState({ ...state, appointments, days });
+          setState((prevState) => {
+            const appointment = {
+              ...prevState.appointments[id],
+              interview: { ...interview },
+            };
+            //update the list of appointments with new appointment obj
+            const appointments = {
+              ...prevState.appointments,
+              [id]: appointment,
+            };
+            let days = updateDaySpots(appointments);
+            return { ...prevState, appointments, days };
+          });
         }
-        return;
       })
       .catch((error) => {
         return Promise.reject(error);
@@ -85,23 +86,24 @@ export function useApplicationData() {
   };
 
   const cancelInterview = function (id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview,
-    };
-    //update the list of appointments with new appointment obj
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment,
-    };
     return axios
       .delete(`/api/appointments/${id}`)
       .then((response) => {
         if (response.status === 204) {
-          let days = updateDaySpots(appointments);
-          setState({ ...state, appointments, days });
+          setState((prevState) => {
+            const appointment = {
+              ...prevState.appointments[id],
+              interview,
+            };
+            //update the list of appointments with new appointment obj
+            const appointments = {
+              ...prevState.appointments,
+              [id]: appointment,
+            };
+            let days = updateDaySpots(appointments);
+            return { ...prevState, appointments, days };
+          });
         }
-        return;
       })
       .catch((error) => {
         return Promise.reject(error);
