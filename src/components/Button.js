@@ -10,9 +10,7 @@ export default function Button(props) {
   });
   return (
     <button
-      onClick={() => {
-        props.onClick();
-      }}
+      onClick={props.onClick}
       className={buttonClass}
       disabled={props.disabled && "disabled"}
     >

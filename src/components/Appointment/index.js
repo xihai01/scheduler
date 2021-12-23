@@ -42,11 +42,6 @@ export default function Appointment(props) {
       });
   };
 
-  const trash = function () {
-    //pop up a confirm message to alert user is about to delete an appointment
-    transition(CONFIRM);
-  };
-
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -60,11 +55,11 @@ export default function Appointment(props) {
             transition(EDIT);
           }}
           onDelete={() => {
-            trash();
+            transition(CONFIRM);
           }}
         />
       )}
-      {(mode === EMPTY && props.time !== "5pm") && (
+      {mode === EMPTY && props.time !== "5pm" && (
         <Empty
           onAdd={() => {
             transition(CREATE);
@@ -74,9 +69,7 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
-          onCancel={() => {
-            back();
-          }}
+          onCancel={back}
           onSave={(name, interviewer) => {
             save(name, interviewer);
           }}
@@ -100,9 +93,7 @@ export default function Appointment(props) {
                 transition(ERROR_DELETE, true);
               });
           }}
-          onCancel={() => {
-            back();
-          }}
+          onCancel={back}
         />
       )}
       {mode === EDIT && (
@@ -110,29 +101,17 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer.id}
           interviewers={props.interviewers}
-          onCancel={() => {
-            back();
-          }}
+          onCancel={back}
           onSave={(name, interviewer) => {
             save(name, interviewer);
           }}
         />
       )}
       {mode === ERROR_DELETE && (
-        <Error
-          message="Could not delete appointment"
-          onClose={() => {
-            back();
-          }}
-        />
+        <Error message="Could not delete appointment" onClose={back} />
       )}
       {mode === ERROR_SAVE && (
-        <Error
-          message="Could not save appointment"
-          onClose={() => {
-            back();
-          }}
-        />
+        <Error message="Could not save appointment" onClose={back} />
       )}
     </article>
   );
