@@ -1,8 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import axios from "axios";
+import stateReducer, {
+  SET_DAY,
+  SET_APPLICATION_DATA,
+  SET_INTERVIEW,
+} from "reducer/state_reducer";
 
 export function useApplicationData() {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(stateReducer, {
     day: "Monday",
     days: [],
     appointments: {},
@@ -19,17 +24,17 @@ export function useApplicationData() {
       const days = response[0].data;
       const appointments = response[1].data;
       const interviewers = response[2].data;
-      setState((prev) => ({
-        ...prev,
+      dispatch({
+        type: SET_APPLICATION_DATA,
         days: days,
         appointments: appointments,
         interviewers: interviewers,
-      }));
+      });
     });
   }, []);
 
   const setDay = (day) => {
-    setState({ ...state, day });
+    dispatch({ type: SET_DAY, day: day });
   };
 
   //input: app. array, state, set state fcn
@@ -65,18 +70,11 @@ export function useApplicationData() {
       .then((response) => {
         //set state if response code is 204
         if (response.status === 204) {
-          setState((prevState) => {
-            const appointment = {
-              ...prevState.appointments[id],
-              interview: { ...interview },
-            };
-            //update the list of appointments with new appointment obj
-            const appointments = {
-              ...prevState.appointments,
-              [id]: appointment,
-            };
-            const days = updateDaySpots(appointments);
-            return { ...prevState, appointments, days };
+          dispatch({
+            type: SET_INTERVIEW,
+            id: id,
+            interview: interview,
+            updateDaySpots: updateDaySpots,
           });
         }
       })
@@ -90,18 +88,11 @@ export function useApplicationData() {
       .delete(`/api/appointments/${id}`)
       .then((response) => {
         if (response.status === 204) {
-          setState((prevState) => {
-            const appointment = {
-              ...prevState.appointments[id],
-              interview,
-            };
-            //update the list of appointments with new appointment obj
-            const appointments = {
-              ...prevState.appointments,
-              [id]: appointment,
-            };
-            const days = updateDaySpots(appointments);
-            return { ...prevState, appointments, days };
+          dispatch({
+            type: SET_INTERVIEW,
+            id: id,
+            interview: interview,
+            updateDaySpots: updateDaySpots,
           });
         }
       })
