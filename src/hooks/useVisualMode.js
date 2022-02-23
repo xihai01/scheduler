@@ -1,8 +1,11 @@
 import { useState } from "react";
-
+// this hook manages the transition state of components using a stack structure
 export function useVisualMode(initial) {
+  // mode is current state component is in
   const [mode, setMode] = useState(initial);
+  // history is a stack holding prev and current modes
   const [history, setHistory] = useState([initial]);
+  // add mode to into stack to keep track of state (replace arg. used to jump back two times, i.e form confirm -> form edit)
   const transition = (newMode, replace = false) => {
     if (replace) {
       setMode(() => newMode);
@@ -18,6 +21,7 @@ export function useVisualMode(initial) {
       setHistory((prev) => [...prev, newMode]);
     }
   };
+  // go back to prev state (delete mode from stack)
   const back = () => {
     //pop last mode from history
     const newHistory = [...history];
